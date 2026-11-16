@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools", "ChimeraX-BundleBuilder"]
+build-backend = "chimerax.bundle_builder.cx_pep517"
+
+[project]
+# Installs as the Python package chimerax.isolde.dna_restraints (ChimeraX strips "ChimeraX-",
+# lower-cases the rest and turns "-" into ".").
+name = "ChimeraX-ISOLDE-DNA_RESTRAINTS"
+license = "Apache-2.0"
+license-files = ["LICENSE.md"]
+authors = [{ name = "Georg Kempf", email = "georg.kempf@fmi.ch" }]
+description = "Extensions to ISOLDE: B-DNA restraints and gap-jumping navigation"
+dependencies = [
+  # Each ISOLDE release is built against a single ChimeraX minor version
+  # (ISOLDE 1.12.x requires ChimeraX 1.12.*). Bump together.
+  "ChimeraX-Core ~=1.12",
+  "ChimeraX-ISOLDE ~=1.12",
+]
+dynamic = ["classifiers", "requires-python", "version"]
+
+[project.readme]
+content-type = "text/markdown"
+text = """Extensions to ISOLDE: experimental B-DNA torsion/distance restraints
+(`isolde restrain b-dna`, `isolde adjust b-dna`, `isolde release b-dna`) and
+`isolde stepgap` to jump between numbering gaps and chain breaks."""
+
+[project.urls]
+Home = "https://github.com/fmi-basel/sbp-chimerax-isolde-dna_restraints"
+
+[tool.setuptools.dynamic]
+version = { attr = "src.__version__" }
+
+[tool.chimerax]
+min-session-version = 1
+max-session-version = 1
+categories = ["General"]
+classifiers = ["Development Status :: 4 - Beta"]
+
+# User documentation, installed to chimerax/isolde/dna_restraints/docs/.
+[tool.chimerax.package-data]
+"src/docs" = ["**"]
+# Parameter tables (B-DNA dihedral definitions, targets, distance restraints),
+# installed to chimerax/isolde/dna_restraints/data/.
+"src/data" = ["**"]
+
+# Commands: each name is dispatched to bundle_api.register_command()
+# (src/__init__.py) the first time it is used.
+[tool.chimerax.command."isolde restrain b-dna"]
+category = "General"
+description = "Restrain two paired DNA chains to B-form (experimental)"
+
+[tool.chimerax.command."isolde adjust b-dna"]
+category = "General"
+description = "Adjust existing B-DNA torsion restraints"
+
+[tool.chimerax.command."isolde release b-dna"]
+category = "General"
+description = "Release B-DNA torsion restraints"
+
+[tool.chimerax.command."isolde stepgap"]
+category = "General"
+description = "Step to the next/previous numbering gap or chain break"

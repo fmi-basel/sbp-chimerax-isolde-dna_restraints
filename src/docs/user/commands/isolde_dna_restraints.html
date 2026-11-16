@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Commands: ISOLDE DNA restraint extension</title>
+</head>
+<body>
+<h1>Commands added to ISOLDE by the ChimeraX-ISOLDE-DNA_RESTRAINTS bundle</h1>
+
+<h2 id="restrain-b-dna">isolde restrain b-dna <i>residues</i>
+[ <b>springConstant</b> <i>k</i> ] [ <b>torsions</b> true | false ]
+[ <b>distances</b> true | false ] [ <b>reset</b> true | false ]</h2>
+<p>Restrain a DNA duplex to B-form. <i>residues</i> must contain only
+DA/DC/DG/DT residues from exactly two chains with the same number of residues;
+the two chains are paired first-to-last in antiparallel fashion (lowest-numbered
+residue of the alphabetically first chain with the highest-numbered residue of
+the second chain), so the selection must cover whole duplex segments.</p>
+<ul>
+<li><b>torsions</b> (default true): adaptive dihedral restraints to B-DNA targets for
+alpha, beta, gamma, delta, epsilon, zeta, the sugar torsions v0&ndash;v4 and the
+glycosidic torsions chi1/chi2.</li>
+<li><b>distances</b> (default true): adaptive distance restraints for the P&ndash;P
+minor- and major-groove widths, for atom pairs across each base pair, and for atom
+pairs within each nucleotide.</li>
+<li><b>springConstant</b> (default 5000 kJ/mol/rad&sup2;): torsion restraint strength.</li>
+<li><b>reset</b> (default false): re-set the targets of existing torsion restraints
+(otherwise only new restraints get targets; all of them get the spring constant).</li>
+</ul>
+<p>Terminal residues lack some atoms/dihedrals; the corresponding restraints are
+simply not created.</p>
+
+<h2 id="adjust-b-dna">isolde adjust b-dna <i>residues</i>
+[ <b>backbone</b> true | false ] [ <b>sidechains</b> true | false ]
+[ <b>angleRange</b> <i>degrees</i> ] [ <b>alpha</b> <i>a</i> ]
+[ <b>springConstant</b> <i>k</i> ]</h2>
+<p>Change the width (<b>angleRange</b>), the force falloff (<b>alpha</b>) and/or the
+strength of existing B-DNA torsion restraints. <b>backbone</b> covers alpha&ndash;zeta
+and v0&ndash;v4, <b>sidechains</b> covers chi1/chi2. Only existing restraints are
+changed.</p>
+
+<h2 id="release-b-dna">isolde release b-dna <i>residues</i>
+[ <b>backbone</b> true | false ] [ <b>sidechains</b> true | false ]</h2>
+<p>Switch off B-DNA torsion restraints. Distance restraints created by
+<b>isolde restrain b-dna</b> are not affected.</p>
+
+<h2 id="stepgap">isolde stepgap [ next | prev ]
+[ <b>model</b> <i>model</i> ] [ <b>polymericOnly</b> true | false ]
+[ <b>select</b> true | false ] [ <b>viewDistance</b> <i>d</i> ]
+[ <b>interpolateFrames</b> <i>n</i> ]</h2>
+<p>Move ISOLDE's residue stepper (see <b>isolde stepto</b>) to the next (default) or
+previous <i>gap</i>: the first residue after a numbering gap, or at a change of
+chain the last residue of the old chain and the first of the new one. If there is
+no further gap in that direction nothing happens.</p>
+</body>
+</html>

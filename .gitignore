@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Build artifacts (make clean / devel clean removes these)
+build/
+dist/
+*.whl
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+._*
+*~
+
+/tests/
+/MIGRATION.md
